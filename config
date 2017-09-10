@@ -36,8 +36,7 @@ popup_during_fullscreen smart
 focus_on_window_activation focus
 
 # start a terminal
-#bindsym $mod+Return exec i3-sensible-terminal
-bindsym $mod+Return exec --no-startup-id urxvt
+bindsym $mod+Return exec i3-sensible-terminal
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -209,29 +208,22 @@ bindsym XF86MonBrightnessUp exec sudo xbacklight -inc 5 && killall -s USR1 py3st
 bindsym XF86MonBrightnessDown exec sudo xbacklight -dec 5 && killall -s USR1 py3status
 
 # Use CapsLock to switch IM
-bindsym Menu exec ~/.config/i3/switch-ibus.bash
+exec ~/.config/i3/fcitx-watch.bash
 
 # Screenshot
 bindsym Mod1+Shift+3 exec "bash -c \\"maim ~/Downloads/$(date +%F-%T).png\\""
 bindsym Mod1+Shift+4 exec "bash -c \\"maim -s ~/Downloads/$(date +%F-%T).png\\""
 
-for_window [title="Sidewise" class="Chromium"] resize shrink width 30 px or 30 ppt
-
 for_window [class="Zeal"] floating enable
 for_window [class="Zeal"] resize set 1000 800
 for_window [class="Zeal"] move position center
 
-for_window [class="GoldenDict"] floating enable
-for_window [class="GoldenDict"] resize set 1000 800
-for_window [class="GoldenDict"] move position center
-
-exec libinput-gestures
+exec_always libinput-gestures-setup restart
 exec_always xset r rate 200 25
 
 exec zeal
-exec goldendict
-
-exec dunst
+exec safeeyes
 
 exec_always feh --bg-scale ~/.config/i3/wallpaper.png
-exec_always ibus-daemon -drx
+# exec_always ibus-daemon -drx
+exec_always fcitx -dr
