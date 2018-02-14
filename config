@@ -222,8 +222,11 @@ exec_always libinput-gestures-setup restart
 exec_always xset r rate 200 25
 
 exec zeal
-exec safeeyes
+exec workrave
 
 exec_always feh --bg-scale ~/.config/i3/wallpaper.png
 # exec_always ibus-daemon -drx
 exec_always fcitx -dr
+
+exec /home/blahgeek/.local/bin/konsole.forever --profile Scratchpad
+for_window [title="__scratchpad_window"] move scratchpad
