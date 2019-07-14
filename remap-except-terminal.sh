@@ -2,7 +2,7 @@
 
 APP=$(xprop -id `xdotool getactivewindow` |awk '/WM_CLASS/{print $4}')
 
-if [ "$APP" = "\"konsole\"" ]; then
+if [ "$APP" = "\"konsole\"" ] || [ "$APP" = "\"bqterm\"" ]; then
 	if [ -n "$2" ]; then
 		sleep 0.1
 		xdotool key --clearmodifiers "$2"
