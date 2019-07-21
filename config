@@ -209,22 +209,10 @@ bindsym XF86AudioMute exec ponymix toggle && killall -s USR1 py3status
 bindsym XF86MonBrightnessUp exec sudo xbacklight -inc 5 && killall -s USR1 py3status
 bindsym XF86MonBrightnessDown exec sudo xbacklight -dec 5 && killall -s USR1 py3status
 
-# for Apple Keyboard
-bindsym --release Mod4+t exec ~/.config/i3/remap-except-terminal.sh Ctrl+t
-bindsym --release Mod4+c exec ~/.config/i3/remap-except-terminal.sh Ctrl+c Ctrl+Shift+c
-bindsym --release Mod4+v exec ~/.config/i3/remap-except-terminal.sh Ctrl+v Ctrl+Shift+v
-bindsym --release Mod4+w exec ~/.config/i3/remap-except-terminal.sh Ctrl+w
-bindsym --release Mod4+a exec ~/.config/i3/remap-except-terminal.sh Ctrl+a
-bindsym --release Mod4+p exec ~/.config/i3/remap-except-terminal.sh Ctrl+p
-bindsym --release Mod4+d exec ~/.config/i3/remap-except-terminal.sh Ctrl+d
-bindsym --release Mod4+z exec ~/.config/i3/remap-except-terminal.sh Ctrl+z
-bindsym --release Mod4+n exec ~/.config/i3/remap-except-terminal.sh Ctrl+n
-bindsym --release Mod4+f exec ~/.config/i3/remap-except-terminal.sh Ctrl+f
-bindsym --release Mod4+r exec ~/.config/i3/remap-except-terminal.sh Ctrl+r
-
 # Use CapsLock to switch IM
 exec ~/.config/i3/fcitx-watch.bash
 exec xcape -e "Hyper_R=Menu"
+exec_always ~/.config/i3/setup-keyboard.sh
 
 # Screenshot
 bindsym Mod4+Shift+3 exec "bash -c \\"flameshot full -p ~/Downloads/\\""
@@ -236,7 +224,6 @@ for_window [class="Zeal"] move position center
 for_window [instance="wechat.exe"] floating enable
 
 exec_always libinput-gestures-setup restart
-exec_always xset r rate 200 25
 
 exec zeal
 # exec workrave
