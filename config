@@ -210,9 +210,8 @@ bindsym XF86MonBrightnessUp exec sudo xbacklight -inc 5 && killall -s USR1 py3st
 bindsym XF86MonBrightnessDown exec sudo xbacklight -dec 5 && killall -s USR1 py3status
 
 # Use CapsLock to switch IM
-exec ~/.config/i3/fcitx-watch.bash
-exec xcape -e "Hyper_R=Menu"
 exec_always ~/.config/i3/setup-keyboard.sh
+exec ~/.config/i3/fcitx-watch.bash
 
 # Screenshot
 bindsym Mod4+Shift+3 exec "bash -c \\"flameshot full -p ~/Downloads/\\""
