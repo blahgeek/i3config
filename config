@@ -9,7 +9,8 @@
 #
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
 
-set $mod Mod3
+set $mod Mod4
+set $mod2 Shift
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -38,15 +39,16 @@ focus_follows_mouse no
 
 # start a terminal
 # bindsym $mod+Return exec i3-sensible-terminal
-bindsym $mod+Return exec bqterm
+bindsym $mod+$mod2+Return exec bqterm
+bindsym $mod+Return exec emacsclient -c
 
 # kill focused window
-bindsym $mod+Mod1+q kill
+bindsym $mod+$mod2+q kill
 
 # start dmenu (a program launcher)
 # start rofi!
-bindsym $mod+t exec rofi -show window
-bindsym $mod+p exec "rofi -show run -run-command \\"bash -i -c '{cmd}'\\""
+bindsym $mod+p exec "env PATH=~/.local/bin:$PATH rofi -show run -run-command \\"bash -i -c '{cmd}'\\""
+# bindsym $mod+p exec "fish -c \\"rofi -show run\\""
 #bindsym $mod+p exec "rofi -show run"
 # bindsym $mod+d exec dmenu_run
 # There also is the (new) i3-dmenu-desktop which only displays applications
@@ -54,12 +56,13 @@ bindsym $mod+p exec "rofi -show run -run-command \\"bash -i -c '{cmd}'\\""
 # installed.
 # bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 bindsym $mod+o exec i3lock -t -i ~/.config/i3/lock.png
+bindsym $mod+$mod2+x exec autorandr -c
 
 # change focus
-bindsym $mod+h focus left
-bindsym $mod+j focus down
-bindsym $mod+k focus up
-bindsym $mod+l focus right
+bindsym $mod+h exec ~/.config/i3/navigate-emacs.bash left
+bindsym $mod+j exec ~/.config/i3/navigate-emacs.bash down
+bindsym $mod+k exec ~/.config/i3/navigate-emacs.bash up
+bindsym $mod+l exec ~/.config/i3/navigate-emacs.bash right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
@@ -68,16 +71,16 @@ bindsym $mod+Up focus up
 bindsym $mod+Right focus right
 
 # move focused window
-bindsym $mod+Mod1+h move left
-bindsym $mod+Mod1+j move down
-bindsym $mod+Mod1+k move up
-bindsym $mod+Mod1+l move right
+bindsym $mod+$mod2+h move left
+bindsym $mod+$mod2+j move down
+bindsym $mod+$mod2+k move up
+bindsym $mod+$mod2+l move right
 
 # alternatively, you can use the cursor keys:
-bindsym $mod+Mod1+Left move left
-bindsym $mod+Mod1+Down move down
-bindsym $mod+Mod1+Up move up
-bindsym $mod+Mod1+Right move right
+bindsym $mod+$mod2+Left move left
+bindsym $mod+$mod2+Down move down
+bindsym $mod+$mod2+Up move up
+bindsym $mod+$mod2+Right move right
 
 # split in horizontal orientation
 bindsym $mod+v split h
@@ -89,12 +92,14 @@ bindsym $mod+n split v
 bindsym $mod+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
-bindsym $mod+s layout stacking
-bindsym $mod+w layout tabbed
-bindsym $mod+e layout toggle split
+# bindsym $mod+s layout stacking
+# bindsym $mod+w layout tabbed
+# bindsym $mod+e layout toggle split
+bindsym $mod+t layout toggle split
+bindsym $mod+u layout tabbed
 
 # toggle tiling / floating
-bindsym $mod+Mod1+space floating toggle
+bindsym $mod+$mod2+space floating toggle
 
 # change focus between tiling / floating windows
 bindsym $mod+space focus mode_toggle
@@ -105,7 +110,7 @@ bindsym $mod+a focus parent
 # focus the child container
 #bindsym $mod+d focus child
 
-bindsym $mod+Mod1+d move scratchpad
+bindsym $mod+$mod2+d move scratchpad
 bindsym $mod+d scratchpad show
 
 # switch to workspace
@@ -121,39 +126,28 @@ bindsym $mod+9 workspace 9
 bindsym $mod+0 workspace 10
 
 bindsym $mod+Tab workspace next_on_output
-bindsym $mod+Mod1+Tab workspace prev_on_output
+bindsym $mod+$mod2+Tab workspace prev_on_output
 
 bindsym $mod+m move workspace to output right
 
 # move focused container to workspace
-bindsym $mod+Mod1+1 move container to workspace 1
-bindsym $mod+Mod1+2 move container to workspace 2
-bindsym $mod+Mod1+3 move container to workspace 3
-bindsym $mod+Mod1+4 move container to workspace 4
-bindsym $mod+Mod1+5 move container to workspace 5
-bindsym $mod+Mod1+6 move container to workspace 6
-bindsym $mod+Mod1+7 move container to workspace 7
-bindsym $mod+Mod1+8 move container to workspace 8
-bindsym $mod+Mod1+9 move container to workspace 9
-bindsym $mod+Mod1+0 move container to workspace 10
-
-bindsym $mod+Ctrl+0 rename workspace to 0
-bindsym $mod+Ctrl+1 rename workspace to 1
-bindsym $mod+Ctrl+2 rename workspace to 2
-bindsym $mod+Ctrl+3 rename workspace to 3
-bindsym $mod+Ctrl+4 rename workspace to 4
-bindsym $mod+Ctrl+5 rename workspace to 5
-bindsym $mod+Ctrl+6 rename workspace to 6
-bindsym $mod+Ctrl+7 rename workspace to 7
-bindsym $mod+Ctrl+8 rename workspace to 8
-bindsym $mod+Ctrl+9 rename workspace to 9
+bindsym $mod+$mod2+1 move container to workspace 1
+bindsym $mod+$mod2+2 move container to workspace 2
+bindsym $mod+$mod2+3 move container to workspace 3
+bindsym $mod+$mod2+4 move container to workspace 4
+bindsym $mod+$mod2+5 move container to workspace 5
+bindsym $mod+$mod2+6 move container to workspace 6
+bindsym $mod+$mod2+7 move container to workspace 7
+bindsym $mod+$mod2+8 move container to workspace 8
+bindsym $mod+$mod2+9 move container to workspace 9
+bindsym $mod+$mod2+0 move container to workspace 10
 
 # reload the configuration file
-bindsym $mod+Mod1+c reload
+bindsym --release $mod+$mod2+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym $mod+Mod1+r restart
+bindsym --release $mod+$mod2+r restart
 # exit i3 (logs you out of your X session)
-bindsym $mod+Mod1+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+bindsym $mod+$mod2+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -214,20 +208,26 @@ exec_always ~/.config/i3/setup-keyboard.sh
 exec ~/.config/i3/fcitx-watch.bash
 
 # Screenshot
-bindsym Mod4+Shift+3 exec "bash -c \\"flameshot full -p ~/Downloads/\\""
-bindsym Mod4+Shift+4 exec "bash -c \\"flameshot gui -p ~/Downloads/\\""
+bindsym Control+Shift+3 exec "bash -c \\"flameshot full -p ~/Downloads/\\""
+bindsym Control+Shift+4 exec "bash -c \\"flameshot gui -p ~/Downloads/\\""
 
 for_window [class="Zeal"] floating enable
-for_window [class="Zeal"] resize set 1000 1000
+# for_window [class="Zeal"] resize set 1000 1000
 for_window [class="Zeal"] move position center
 for_window [instance="wechat.exe"] floating enable
 
 exec_always libinput-gestures-setup restart
 
 exec zeal
-# exec workrave
+exec goldendict
+exec dunst
+exec workrave
 exec dropbox
 exec ~/.local/bin/minions
+
+exec bqterm
+exec ~/.local/bin/emacs --daemon
+exec xss-lock -- i3lock -t -i ~/.config/i3/lock.png
 
 exec_always feh --bg-scale ~/.config/i3/wallpaper.png
 # exec_always ibus-daemon -drx
@@ -235,3 +235,5 @@ exec_always fcitx -dr
 
 # exec /home/blahgeek/.local/bin/konsole.forever --profile Scratchpad
 for_window [title="__scratchpad_window"] move scratchpad
+for_window [title="CopyQ"] sticky enable
+for_window [title="CopyQ"] floating enable
