@@ -1,8 +1,9 @@
 #!/bin/bash
 
-function get-focussed-window()
+function get-focused-emacs-server-name()
 {
-    i3-msg -t get_tree | jq -r ".. | select(.focused? == true).window_properties.class"
+    local window=$(i3-msg -t get_tree | jq -r ".. | select(.focused? == true).window")
+    xprop -id "$window" EMACS_SERVER_NAME | sed -nE 's/^EMACS_SERVER_NAME.*= "(.+)"/\1/p'
 }
 
 function i3-move()
@@ -12,14 +13,14 @@ function i3-move()
 
 function emacs-move()
 {
-    emacsclient -e "(evil-window-$1 1)"
+    emacsclient -s "$2" -e "(evil-window-$1 1)"
 }
 
 function perform-move()
 {
-    local focussed_workspace=$(get-focussed-window)
-    if [ "$focussed_workspace" = "Emacs" ]; then
-        emacs-move "$1"
+    local server_name=$(get-focused-emacs-server-name)
+    if [ -n "$server_name" ]; then
+        emacs-move "$1" "$server_name"
         local result=$?
         if [ $result -ne 0 ]; then
             i3-move "$1"
