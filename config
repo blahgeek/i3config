@@ -14,7 +14,7 @@ set $mod2 Shift
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font pango:Inconsolata 10
+font pango:Inconsolata 12
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
@@ -38,9 +38,8 @@ focus_on_window_activation focus
 focus_follows_mouse no
 
 # start a terminal
-# bindsym $mod+Return exec i3-sensible-terminal
-bindsym $mod+$mod2+Return exec bqterm
-bindsym $mod+Return exec emacsclient -c
+bindsym $mod+$mod2+Return exec ~/.config/i3/scripts/sensible-terminal
+bindsym $mod+Return exec emacs
 
 # kill focused window
 bindsym $mod+$mod2+q kill
@@ -54,15 +53,15 @@ bindsym $mod+p exec "env PATH=~/.local/bin:$PATH rofi -show run -run-command \\"
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
-# bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
-bindsym $mod+o exec i3lock -t -i ~/.config/i3/lock.png
+bindsym $mod+o exec ~/.config/i3/scripts/sensible-lock
 bindsym $mod+$mod2+x exec autorandr -c
 
 # change focus
-bindsym $mod+h exec ~/.config/i3/navigate-emacs.bash left
-bindsym $mod+j exec ~/.config/i3/navigate-emacs.bash down
-bindsym $mod+k exec ~/.config/i3/navigate-emacs.bash up
-bindsym $mod+l exec ~/.config/i3/navigate-emacs.bash right
+
+bindsym $mod+h exec ~/.config/i3/scripts/navigate-emacs.bash left
+bindsym $mod+j exec ~/.config/i3/scripts/navigate-emacs.bash down
+bindsym $mod+k exec ~/.config/i3/scripts/navigate-emacs.bash up
+bindsym $mod+l exec ~/.config/i3/scripts/navigate-emacs.bash right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
@@ -178,6 +177,8 @@ bindsym $mod+r mode "resize"
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
+  # Note: install font awesome version 4
+  font pango:FontAwesome,Inconsolata 12
   position top
   separator_symbol " "
   status_command py3status -b -c ~/.config/i3/i3status.conf -i ~/.config/i3/i3status.modules/
@@ -200,12 +201,12 @@ client.urgent #2f343a #900000 #ffffff #900000
 bindsym XF86AudioRaiseVolume exec ponymix increase 5 && killall -s USR1 py3status
 bindsym XF86AudioLowerVolume exec ponymix decrease 5 && killall -s USR1 py3status
 bindsym XF86AudioMute exec ponymix toggle && killall -s USR1 py3status
-bindsym XF86MonBrightnessUp exec sudo xbacklight -inc 5 && killall -s USR1 py3status
-bindsym XF86MonBrightnessDown exec sudo xbacklight -dec 5 && killall -s USR1 py3status
+bindsym XF86MonBrightnessUp exec xbacklight -inc 5 && killall -s USR1 py3status
+bindsym XF86MonBrightnessDown exec xbacklight -dec 5 && killall -s USR1 py3status
 
-# Use CapsLock to switch IM
-exec_always ~/.config/i3/setup-keyboard.sh
-exec ~/.config/i3/fcitx-watch.bash
+# Keyboard / touchpad customization
+exec_always ~/.config/i3/scripts/setup-keyboard.sh
+exec_always libinput-gestures-setup restart
 
 # Screenshot
 bindsym Control+Shift+3 exec "bash -c \\"flameshot full -p ~/Downloads/\\""
@@ -216,24 +217,12 @@ for_window [class="Zeal"] floating enable
 for_window [class="Zeal"] move position center
 for_window [instance="wechat.exe"] floating enable
 
-exec_always libinput-gestures-setup restart
+exec ~/.config/i3/autostart.sh
 
-exec zeal
-exec goldendict
-exec dunst
-exec workrave
-exec dropbox
-exec ~/.local/bin/minions
+exec xss-lock -- ~/.config/i3/scripts/sensible-lock
 
-exec bqterm
-exec ~/.local/bin/emacs --daemon
-exec xss-lock -- i3lock -t -i ~/.config/i3/lock.png
-
-exec_always feh --bg-scale ~/.config/i3/wallpaper.png
-# exec_always ibus-daemon -drx
+# exec_always feh --bg-scale ~/.config/i3/images/wallpaper.png
 exec_always fcitx -dr
 
-# exec /home/blahgeek/.local/bin/konsole.forever --profile Scratchpad
-for_window [title="__scratchpad_window"] move scratchpad
 for_window [title="CopyQ"] sticky enable
 for_window [title="CopyQ"] floating enable
