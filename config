@@ -221,7 +221,7 @@ exec ~/.config/i3/autostart.sh
 
 exec xss-lock -- ~/.config/i3/scripts/sensible-lock
 
-# exec_always feh --bg-scale ~/.config/i3/wallpaper.png
+# exec_always feh --bg-scale ~/.config/i3/images/wallpaper.png
 exec_always fcitx -dr
 
 for_window [title="CopyQ"] sticky enable
