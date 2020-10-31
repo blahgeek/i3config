@@ -9,8 +9,8 @@ from xkeysnail.transform import (define_keymap, K, Key,
 
 define_modmap({
     Key.LEFT_CTRL: Key.LEFT_ALT,
-    Key.LEFT_META: Key.LEFT_CTRL,
-    Key.LEFT_ALT: Key.LEFT_META,
+    Key.LEFT_ALT: Key.LEFT_CTRL,
+    Key.LEFT_META: Key.LEFT_META,
     Key.CAPSLOCK: Key.RIGHT_META,
 })
 
