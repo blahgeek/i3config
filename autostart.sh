@@ -1,7 +1,7 @@
 #!/bin/bash
 
 start() {
-    nohup "$@" > /dev/null 2>&1
+    nohup "$@" > /dev/null 2>&1 &
 }
 
 start zeal
@@ -18,7 +18,7 @@ if [[ "$(hostname)" =~ [Bb]raavos ]]; then
 fi
 
 if [[ "$(hostname)" =~ [Oo]ldtown ]]; then
-    start dropbox
     start ~/.local/bin/minions
     start ~/.config/i3/scripts/sensible-terminal
+    start blueman-applet
 fi
