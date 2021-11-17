@@ -1,9 +1,26 @@
 #!/bin/bash
 
-function get-focused-emacs-server-name()
+function get-emacs-server-name-prop()
 {
     local window=$(i3-msg -t get_tree | jq -r ".. | select(.focused? == true).window")
     xprop -id "$window" EMACS_SERVER_NAME | sed -nE 's/^EMACS_SERVER_NAME.*= "(.+)"/\1/p'
+}
+
+function get-emacs-server-name-title()
+{
+    i3-msg -t get_tree | \
+        jq -r ".. | select(.focused? == true).window_properties.title" | \
+        sed -nE 's/^Emacs:SERVER_NAME=(.+)/\1/p'
+}
+
+function get-emacs-server-name()
+{
+    local name="$(get-emacs-server-name-prop)"
+    if [ -z "$name" ]; then
+        get-emacs-server-name-title
+    else
+        echo "$name"
+    fi
 }
 
 function i3-move()
@@ -18,7 +35,7 @@ function emacs-move()
 
 function perform-move()
 {
-    local server_name=$(get-focused-emacs-server-name)
+    local server_name=$(get-emacs-server-name)
     if [ -n "$server_name" ]; then
         emacs-move "$1" "$server_name"
         local result=$?
