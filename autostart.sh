@@ -7,7 +7,7 @@ start() {
 start zeal
 start goldendict
 start dunst
-start workrave
+start safeeyes
 
 if [[ "$(hostname)" =~ [Bb]raavos ]]; then
     # lack user systemd in Braavos
@@ -18,7 +18,7 @@ if [[ "$(hostname)" =~ [Bb]raavos ]]; then
 fi
 
 if [[ "$(hostname)" =~ [Oo]ldtown ]]; then
-    start ~/.local/bin/minions
+    # start ~/.local/bin/minions
     start ~/.config/i3/scripts/sensible-terminal
     start blueman-applet
 fi
