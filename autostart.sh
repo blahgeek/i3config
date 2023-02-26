@@ -21,4 +21,5 @@ if [[ "$(hostname)" =~ [Oo]ldtown ]]; then
     # start ~/.local/bin/minions
     start ~/.config/i3/scripts/sensible-terminal
     start blueman-applet
+    start pasystray
 fi
