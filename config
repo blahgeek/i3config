@@ -39,7 +39,8 @@ focus_follows_mouse no
 
 # start a terminal
 bindsym $mod+$mod2+Return exec ~/.config/i3/scripts/sensible-terminal
-bindsym $mod+Return exec emacs
+bindsym $mod+Return exec ~/.local/bin/emacs
+bindsym $mod+Mod1+Return exec ~/.local/bin/emacs-ink
 
 # kill focused window
 bindsym $mod+$mod2+q kill
@@ -53,7 +54,8 @@ bindsym $mod+p exec "env PATH=~/.local/bin:$PATH rofi -show run -run-command \\"
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
-bindsym $mod+o exec ~/.config/i3/scripts/sensible-lock
+# bindsym $mod+o exec ~/.config/i3/scripts/sensible-lock
+bindsym --release $mod+o exec xset dpms force off
 bindsym $mod+$mod2+x exec autorandr -c
 
 # change focus
@@ -62,6 +64,13 @@ bindsym $mod+h exec ~/.config/i3/scripts/navigate-emacs.bash left
 bindsym $mod+j exec ~/.config/i3/scripts/navigate-emacs.bash down
 bindsym $mod+k exec ~/.config/i3/scripts/navigate-emacs.bash up
 bindsym $mod+l exec ~/.config/i3/scripts/navigate-emacs.bash right
+
+# rabbitink
+bindsym $mod+c exec killall -USR1 rabbitink
+bindsym $mod+F1 exec echo mono_naive > /tmp/rabbitink_run_mode.config && killall -USR1 rabbitink
+bindsym $mod+F2 exec echo mono_bayers2 > /tmp/rabbitink_run_mode.config && killall -USR1 rabbitink
+bindsym $mod+F4 exec echo mono_bayers4 > /tmp/rabbitink_run_mode.config && killall -USR1 rabbitink
+bindsym $mod+F5 exec echo gray > /tmp/rabbitink_run_mode.config && killall -USR1 rabbitink
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
@@ -178,8 +187,10 @@ bindsym $mod+r mode "resize"
 # finds out, if available)
 bar {
   # Note: install font awesome version 4
-  font pango:FontAwesome,Inconsolata 12
+  font pango:FontAwesome,Inconsolata 10
   position top
+  output primary
+  output HDMI-0
   separator_symbol " "
   status_command py3status -b -c ~/.config/i3/i3status.conf -i ~/.config/i3/i3status.modules/
   colors {
@@ -190,6 +201,22 @@ bar {
     active_workspace #333333 #333333 #ffffff
     inactive_workspace #333333 #333333 #888888
     urgent_workspace #2f343a #900000 #ffffff
+  }
+}
+
+bar {
+  font pango:Iosevka Ink 8
+  position top
+  output DP-0
+  separator_symbol " "
+  colors {
+    separator #666666
+    background #aaaaaa
+    statusline #dddddd
+    focused_workspace #aaaaaa #000000 #ffffff
+    active_workspace #aaaaaa #000000 #ffffff
+    inactive_workspace #aaaaaa #333333 #ffffff
+    urgent_workspace #aaaaaa #ffffff #000000
   }
 }
 
