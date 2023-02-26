@@ -14,7 +14,7 @@ set $mod2 Shift
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font pango:Inconsolata 12
+font pango:Inconsolata 10
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
@@ -120,6 +120,10 @@ bindsym $mod+a focus parent
 
 bindsym $mod+$mod2+d move scratchpad
 bindsym $mod+d scratchpad show
+
+# dunst
+bindsym $mod+grave exec "dunstctl close"
+bindsym $mod+$mod2+grave exec "dunstctl history-pop"
 
 # switch to workspace
 bindsym $mod+1 workspace 1
@@ -236,7 +240,7 @@ exec_always ~/.config/i3/scripts/setup-keyboard.sh
 exec_always libinput-gestures-setup restart
 
 # Screenshot
-bindsym Control+Shift+3 exec "bash -c \\"flameshot full -p ~/Downloads/\\""
+bindsym Control+Shift+3 exec "bash -c \\"flameshot launcher -p ~/Downloads/\\""
 bindsym Control+Shift+4 exec "bash -c \\"flameshot gui -p ~/Downloads/\\""
 
 for_window [class="Zeal"] floating enable
