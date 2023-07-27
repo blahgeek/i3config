@@ -30,18 +30,18 @@ function i3-move()
 
 function emacs-move()
 {
-    emacsclient -s "$2" -e "(evil-window-$1 1)"
+    # NOTE: simply (windmove-$1) would block for 2 seconds on error: https://debbugs.gnu.org/cgi/bugreport.cgi?bug=64866
+    RES="$(emacsclient -s "$2" -e "(condition-case nil (progn (windmove-$1) t) (error nil))")"
+    if [ "$RES" != "t" ]; then
+        return 1
+    fi
 }
 
 function perform-move()
 {
     local server_name=$(get-emacs-server-name)
     if [ -n "$server_name" ]; then
-        emacs-move "$1" "$server_name"
-        local result=$?
-        if [ $result -ne 0 ]; then
-            i3-move "$1"
-        fi
+        emacs-move "$1" "$server_name" || i3-move "$1"
     else
         i3-move "$1"
     fi
